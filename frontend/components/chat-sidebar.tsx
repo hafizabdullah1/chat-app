@@ -1,12 +1,16 @@
 "use client"
 
 import { useState } from "react"
-import { Search, MoreVertical, MessageSquarePlus } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { Search, MoreVertical, MessageSquarePlus, LogOut } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Input } from "@/components/ui/input"
 import { ChatItem } from "@/components/chat-item"
 import type { Chat } from "@/lib/chat-data"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { useAppDispatch } from "@/lib/redux/hooks"
+import { useLogoutMutation } from "@/lib/redux/api/apiSlice"
+import { logout } from "@/lib/redux/slices/authSlice"
 
 interface ChatSidebarProps {
   chats: Chat[]
@@ -15,7 +19,21 @@ interface ChatSidebarProps {
 }
 
 export function ChatSidebar({ chats, selectedChatId, onChatSelect }: ChatSidebarProps) {
+  const router = useRouter()
+  const dispatch = useAppDispatch()
   const [searchQuery, setSearchQuery] = useState("")
+  const [logoutMutation] = useLogoutMutation()
+
+  const handleLogout = async () => {
+    try {
+      await logoutMutation({}).unwrap()
+    } catch (err) {
+      console.error("Logout error:", err)
+    } finally {
+      dispatch(logout())
+      router.push("/login")
+    }
+  }
 
   const filteredChats = chats.filter((chat) => chat.name.toLowerCase().includes(searchQuery.toLowerCase()))
 
@@ -36,7 +54,10 @@ export function ChatSidebar({ chats, selectedChatId, onChatSelect }: ChatSidebar
             <DropdownMenuContent align="end">
               <DropdownMenuItem>Profile</DropdownMenuItem>
               <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleLogout} className="text-red-600">
+                <LogOut className="w-4 h-4 mr-2" />
+                Logout
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
