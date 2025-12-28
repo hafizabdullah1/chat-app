@@ -15,7 +15,7 @@ import { updateUser } from "@/lib/redux/slices/authSlice";
 export default function SettingsPage() {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { isAuthenticated, user } = useAppSelector((state) => state.auth);
+  const { isAuthenticated, isInitialized, user } = useAppSelector((state) => state.auth);
   const [updateProfile, { isLoading }] = useUpdateProfileMutation();
 
   const [formData, setFormData] = useState({
@@ -28,10 +28,22 @@ export default function SettingsPage() {
   const [message, setMessage] = useState({ type: "", text: "" });
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (isInitialized && !isAuthenticated) {
       router.push("/login");
     }
-  }, [isAuthenticated, router]);
+  }, [isInitialized, isAuthenticated, router]);
+
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        username: user.username || "",
+        email: user.email || "",
+        bio: user.bio || "",
+        phone: user.phone || "",
+        profilePic: user.profilePic || "",
+      });
+    }
+  }, [user]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -60,7 +72,7 @@ export default function SettingsPage() {
     }
   };
 
-  if (!isAuthenticated) {
+  if (!isInitialized || !isAuthenticated) {
     return null;
   }
 
@@ -77,7 +89,7 @@ export default function SettingsPage() {
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
-          <h1 className="text-2xl font-bold text-gray-900">Profile Settings</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Profile</h1>
         </div>
 
         {/* Profile Form */}

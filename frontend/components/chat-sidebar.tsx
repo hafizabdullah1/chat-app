@@ -41,7 +41,10 @@ export function ChatSidebar({ chats, selectedChatId, onChatSelect }: ChatSidebar
     <div className="w-full md:w-[400px] bg-white border-r border-gray-200 flex flex-col">
       {/* Profile Header */}
       <div className="bg-chat-header px-4 py-3 flex items-center justify-between">
-        <Avatar className="w-10 h-10 cursor-pointer">
+        <Avatar 
+          className="w-10 h-10 cursor-pointer hover:opacity-80 transition-opacity"
+          onClick={() => router.push("/settings")}
+        >
           <AvatarImage src="/abstract-geometric-shapes.png" alt="You" />
           <AvatarFallback className="bg-emerald-500 text-white">ME</AvatarFallback>
         </Avatar>
@@ -52,8 +55,9 @@ export function ChatSidebar({ chats, selectedChatId, onChatSelect }: ChatSidebar
               <MoreVertical className="w-5 h-5 text-gray-600 cursor-pointer hover:text-gray-900" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Settings</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => router.push("/settings")}>
+                Profile
+              </DropdownMenuItem>
               <DropdownMenuItem onClick={handleLogout} className="text-red-600">
                 <LogOut className="w-4 h-4 mr-2" />
                 Logout
