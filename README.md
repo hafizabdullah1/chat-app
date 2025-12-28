@@ -385,48 +385,6 @@ chat-app/
 
 ---
 
-## 🧪 Testing
-
-### Backend (Postman/Thunder Client)
-
-1. **Signup:**
-   ```
-   POST http://localhost:5000/api/auth/signup
-   Body: {
-     "username": "testuser",
-     "email": "test@example.com",
-     "password": "password123"
-   }
-   ```
-
-2. **Login:**
-   ```
-   POST http://localhost:5000/api/auth/login
-   Body: {
-     "email": "test@example.com",
-     "password": "password123"
-   }
-   ```
-
-3. **Get Users (Protected):**
-   ```
-   GET http://localhost:5000/api/users
-   Headers: {
-     "Authorization": "Bearer YOUR_JWT_TOKEN"
-   }
-   ```
-
-### Frontend
-
-1. Open `http://localhost:3000`
-2. Click "Sign up" → Create account
-3. Should redirect to Contacts page
-4. Click on a user → Opens chat
-5. Test logout → Should redirect to login
-6. Login again → Token should persist
-
----
-
 ## 🎨 Pages
 
 ### `/signup`
@@ -500,28 +458,6 @@ chat-app/
 
 ---
 
-## 🚧 Next Steps (Socket.io Implementation)
-
-The authentication system is complete! Now you can add Socket.io:
-
-### Backend
-1. Install: `npm install socket.io`
-2. Create `config/socket.js` for Socket.io setup
-3. Create `socket/socketHandlers.js` for events
-4. Update `server.js` to initialize Socket.io
-5. Implement events: `user:online`, `message:send`, `typing:start`, etc.
-
-### Frontend
-1. Install: `npm install socket.io-client`
-2. Create `lib/socket/socketClient.ts`
-3. Connect socket on login
-4. Listen for events and update Redux state
-5. Emit events for messages, typing, etc.
-
-**Refer to the original `implementation_plan.md` for detailed Socket.io setup!**
-
----
-
 ## 📝 Environment Variables
 
 ### Backend (.env)
@@ -540,28 +476,6 @@ NEXT_PUBLIC_API_URL=http://localhost:5000/api
 
 ---
 
-## 🐛 Troubleshooting
-
-### MongoDB Connection Error
-- Ensure MongoDB is running: `mongod`
-- Check connection string in `.env`
-
-### CORS Error
-- Backend has `cors()` middleware enabled
-- Check frontend API URL in `.env.local`
-
-### Token Not Persisting
-- Check browser localStorage
-- Ensure ReduxProvider wraps app in `layout.tsx`
-- Check `restoreAuth()` is called in ReduxProvider
-
-### 401 Unauthorized
-- Check token is being sent in headers
-- Verify JWT_SECRET matches between signup and login
-- Check token hasn't expired
-
----
-
 ## 📚 Resources
 
 - [Express.js Docs](https://expressjs.com/)
@@ -569,26 +483,8 @@ NEXT_PUBLIC_API_URL=http://localhost:5000/api
 - [JWT.io](https://jwt.io/)
 - [Redux Toolkit Docs](https://redux-toolkit.js.org/)
 - [Next.js Docs](https://nextjs.org/docs)
-- [Socket.io Docs](https://socket.io/docs/) ← For your next step!
-
----
-
-## ✅ Checklist
-
-- [x] Backend authentication API
-- [x] User model with validation
-- [x] JWT token system
-- [x] Protected routes
-- [x] Redux Toolkit setup
-- [x] Signup page
-- [x] Login page
-- [x] Contacts page
-- [x] Settings page
-- [x] Token persistence
-- [ ] Socket.io integration (Your turn! 🚀)
+- [Socket.io Docs](https://socket.io/docs/)
 
 ---
 
 **Happy Coding! 🎉**
-
-Ab aap Socket.io implement kar sakte hain. Saari authentication ready hai!
