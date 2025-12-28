@@ -16,9 +16,10 @@ interface ChatSidebarProps {
   chats: Chat[]
   selectedChatId: string
   onChatSelect: (chat: Chat) => void
+  onNewChatClick: () => void
 }
 
-export function ChatSidebar({ chats, selectedChatId, onChatSelect }: ChatSidebarProps) {
+export function ChatSidebar({ chats, selectedChatId, onChatSelect, onNewChatClick }: ChatSidebarProps) {
   const router = useRouter()
   const dispatch = useAppDispatch()
   const [searchQuery, setSearchQuery] = useState("")
@@ -49,7 +50,10 @@ export function ChatSidebar({ chats, selectedChatId, onChatSelect }: ChatSidebar
           <AvatarFallback className="bg-emerald-500 text-white">ME</AvatarFallback>
         </Avatar>
         <div className="flex items-center gap-6">
-          <MessageSquarePlus className="w-5 h-5 text-gray-600 cursor-pointer hover:text-gray-900" />
+          <MessageSquarePlus 
+            className="w-5 h-5 text-gray-600 cursor-pointer hover:text-gray-900" 
+            onClick={onNewChatClick}
+          />
           <DropdownMenu>
             <DropdownMenuTrigger className="focus:outline-none">
               <MoreVertical className="w-5 h-5 text-gray-600 cursor-pointer hover:text-gray-900" />
