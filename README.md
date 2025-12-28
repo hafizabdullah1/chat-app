@@ -384,6 +384,7 @@ chat-app/
 **Full API documentation:** See `backend/API_TESTING.md`
 
 ---
+
 ## 🎨 Pages
 
 ### `/signup`
@@ -457,6 +458,24 @@ chat-app/
 
 ---
 
+## 📝 Environment Variables
+
+### Backend (.env)
+```env
+PORT=5000
+MONGO_URI=mongodb://localhost:27017/chatapp
+JWT_SECRET=your_super_secret_jwt_key_change_this_in_production_min_32_chars
+JWT_EXPIRE=7d
+NODE_ENV=development
+```
+
+### Frontend (.env.local)
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5000/api
+```
+
+---
+
 ## 📚 Resources
 
 - [Express.js Docs](https://expressjs.com/)
@@ -464,7 +483,7 @@ chat-app/
 - [JWT.io](https://jwt.io/)
 - [Redux Toolkit Docs](https://redux-toolkit.js.org/)
 - [Next.js Docs](https://nextjs.org/docs)
-- [Socket.io Docs](https://socket.io/docs/) ← For your next step!
+- [Socket.io Docs](https://socket.io/docs/)
 
 ---
 
