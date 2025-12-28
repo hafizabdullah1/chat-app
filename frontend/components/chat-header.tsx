@@ -7,12 +7,13 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 interface ChatHeaderProps {
   chat: Chat
   onBack?: () => void
+  onProfileClick: () => void
 }
 
-export function ChatHeader({ chat, onBack }: ChatHeaderProps) {
+export function ChatHeader({ chat, onBack, onProfileClick }: ChatHeaderProps) {
   return (
     <div className="bg-chat-header px-4 md:px-6 py-3 flex items-center justify-between border-b border-gray-200">
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 cursor-pointer" onClick={onProfileClick}>
         {/* Back button - Only visible on mobile */}
         {onBack && (
           <Button
@@ -54,7 +55,7 @@ export function ChatHeader({ chat, onBack }: ChatHeaderProps) {
             <MoreVertical className="w-5 h-5 text-gray-600 cursor-pointer hover:text-gray-900" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem>Contact info</DropdownMenuItem>
+            <DropdownMenuItem onClick={onProfileClick}>Contact info</DropdownMenuItem>
             <DropdownMenuItem>Select messages</DropdownMenuItem>
             <DropdownMenuItem>Mute notifications</DropdownMenuItem>
             <DropdownMenuItem>Clear messages</DropdownMenuItem>
