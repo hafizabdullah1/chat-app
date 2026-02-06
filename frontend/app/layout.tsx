@@ -1,16 +1,18 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
-import { Analytics } from "@vercel/analytics/next"
-import { ReduxProvider } from "@/lib/redux/ReduxProvider"
-import "./globals.css"
+import type React from "react";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { ReduxProvider } from "@/lib/redux/ReduxProvider";
+import "./globals.css";
+import SocketProvider from "@/components/SocketProvider";
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const _geist = Geist({ subsets: ["latin"] });
+const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "ChatApp - WhatsApp Web Clone",
-  description: "A modern WhatsApp-style chat application built with Next.js and Tailwind CSS",
+  description:
+    "A modern WhatsApp-style chat application built with Next.js and Tailwind CSS",
   generator: "v0.app",
   icons: {
     icon: [
@@ -29,22 +31,21 @@ export const metadata: Metadata = {
     ],
     apple: "/apple-icon.png",
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
       <body className={`font-sans antialiased`}>
         <ReduxProvider>
-          {children}
+          <SocketProvider>{children}</SocketProvider>
           <Analytics />
         </ReduxProvider>
       </body>
     </html>
-  )
+  );
 }
-
