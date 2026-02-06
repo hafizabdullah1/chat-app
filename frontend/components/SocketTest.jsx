@@ -1,17 +1,32 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getSocket, connectSocket, disconnectSocket } from "@/lib/socket";
+import { getSocket, disconnectSocket } from "@/lib/socket";
 
 export default function SocketTest() {
     const [isConnected, setIsConnected] = useState(false);
     const [socketId, setSocketId] = useState("");
+    const [socket, setSocket] = useState(null);
 
     useEffect(() => {
-        // Socket instance
-        const socket = getSocket();
+        // Poll for socket instance because it might be initialized by SocketProvider
+        const interval = setInterval(() => {
+            const s = getSocket();
+            if (s) {
+                setSocket(s);
+                if (s.connected) {
+                    setIsConnected(true);
+                    setSocketId(s.id);
+                }
+            }
+        }, 1000);
 
-        // Event listeners
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        if (!socket) return;
+
         const handleConnect = () => {
             console.log("Component: Socket connected");
             setIsConnected(true);
@@ -24,21 +39,18 @@ export default function SocketTest() {
             setSocketId("");
         };
 
-        // Listeners attach
         socket.on("connect", handleConnect);
         socket.on("disconnect", handleDisconnect);
 
-        if (socket.connected) {
-            setIsConnected(true);
-            setSocketId(socket.id);
-        }
-
-        // Cleanup function
         return () => {
             socket.off("connect", handleConnect);
             socket.off("disconnect", handleDisconnect);
         };
-    }, []);
+    }, [socket]);
+
+    const handleManualConnect = () => {
+        alert("Socket connection is now handled automatically via Login/SocketProvider.");
+    };
 
     return (
         <div style={{ padding: "20px", border: "2px solid #ccc", margin: "20px" }}>
@@ -60,7 +72,7 @@ export default function SocketTest() {
             {/* Control Buttons */}
             <div style={{ display: "flex", gap: "10px" }}>
                 <button
-                    onClick={connectSocket}
+                    onClick={handleManualConnect}
                     disabled={isConnected}
                     style={{
                         padding: "10px 20px",
@@ -70,7 +82,7 @@ export default function SocketTest() {
                         cursor: isConnected ? "not-allowed" : "pointer"
                     }}
                 >
-                    Connect
+                    Connect (Auto-Auth)
                 </button>
 
                 <button
