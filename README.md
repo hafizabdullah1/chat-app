@@ -55,7 +55,7 @@ Monorepo layout: `frontend/` + `backend/` with root `README.md`.
 git clone https://github.com/hafizabdullah1/chat-app.git
 cd chat-app/backend
 npm install
-cp .env.example .env   # then edit values
+create/edit `.env` with your values
 npm run server         # nodemon, or: npm start
 ```
 
@@ -70,7 +70,7 @@ npm run dev
 
 ### Environment
 
-**Backend** (from `.env.example`):
+**Backend** (`.env`):
 
 | Variable | Required | Description |
 | --- | --- | --- |
@@ -96,7 +96,6 @@ npm run dev
 ## Roadmap
 
 - [ ] Rename frontend package from `my-v0-project`
-- [ ] Remove committed `frontend/.env.local`; add `frontend/.env.example`
 - [ ] Typing indicators, read receipts, media messages
 - [ ] Docker Compose for API + Mongo
 - [ ] Tests + CI + MIT license + OG image
