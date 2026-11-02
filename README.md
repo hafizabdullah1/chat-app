@@ -7,12 +7,6 @@ WhatsApp-inspired real-time messaging — JWT auth, MongoDB, Socket.io presence,
 - Frontend: [https://chat-app-gamma-mocha.vercel.app](https://chat-app-gamma-mocha.vercel.app)
 - Backend: deploy the `backend/` API (and Socket.io) separately; set `NEXT_PUBLIC_API_URL` / `FRONTEND_URL`
 
-## Screenshots
-
-| Login | Contacts | Chat |
-| --- | --- | --- |
-| ![Login](docs/screenshots/login.png) | ![Contacts](docs/screenshots/contacts.png) | ![Chat](docs/screenshots/chat.png) |
-
 ## Key features
 
 - JWT register/login with bcrypt password hashing
